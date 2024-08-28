@@ -1,0 +1,40 @@
+<div class="schedulesModal">
+    <div class="modal-header">
+        <h3 class="modal-title">Include schedules</h3>
+    </div>
+    <div class="scheduleModal-dropSelector">
+        <dropselector in-modal="true" class="col-xs-12 col-md-8 col-lg-12 dropSelector-noPadding"></dropselector>
+    </div>
+    <div class="schedulesModal-tableHolder">
+        <table class="table table-fixed table-striped schedules-table schedulesModal-table">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Version</th>
+                <th>Type</th>
+                <th>Author</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="schedules-results" ng-repeat="schedule in vm.scheduleList">
+                <td class="schedule-td_enabled">
+                    <input type="checkbox"
+                           class="schedule-td_enabled_checkbox"
+                           title="Check to select the schedule"
+                           ng-checked="schedule.included"
+                           ng-click="vm.addOrRemoveSchedule(schedule)">
+                </td>
+                <td class="schedule-td_name">{{schedule.name}}.xml</td>
+                <td class="schedule-td_version">{{schedule.version}}</td>
+                <td class="schedule-td_type">{{schedule.type.name}}</td>
+                <td class="schedule-td_createdBy">{{schedule.createdBy}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="vm.confirmAction()" ng-disabled="vm.disableConfirmButton">OK</button>
+        <button class="btn btn-default" ng-click="vm.cancelAction()">Cancel</button>
+    </div>
+</div>

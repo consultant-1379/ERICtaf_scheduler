@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<schedule xmlns="http://taf.lmera.ericsson.se/schema/te"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://taf.lmera.ericsson.se/schema/te http://taf.lmera.ericsson.se/schema/te/schedule/xml">
+    <item>
+        <name>Component with specific version</name>
+        <component>com.ericsson.cifwk.taf.executor:te-taf-testware:1.0.1</component>
+        <suites>one.xml</suites>
+    </item>
+    <item>
+        <name>Component with latest version</name>
+        <component>com.ericsson.cifwk.taf.executor:te-taf-testware:LATEST</component>
+        <suites>two.xml</suites>
+    </item>
+</schedule>

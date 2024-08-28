@@ -1,0 +1,33 @@
+<div class="schedules-docTemplate">
+    <h2 class="schedules-docTemplate-heading">Overview</h2>
+    <p>
+        TAF Scheduler is a web application that provides a convenient way to generate schedules that describe to
+        <a href="http://taf.lmera.ericsson.se/taflanding/tedocs/latest/index.html" target="_blank">TAF Test Executor</a>
+        how your tests should be run. For detailed information on schedules, please see
+        <a href="http://taf.lmera.ericsson.se/taflanding/tedocs/latest/schedule.html" target="_blank">this page</a>.
+    </p>
+    <p>
+        TAF Scheduler strives to as far as possible remove the necessity for manual creation of schedules. Schedules
+        are complex XML documents and mistakes can be made. Such mistakes can be costly given the time that it takes to
+        execute Maintrack CI loops and team KGB+N jobs. TAF Scheduler provides the user with features such as <b>automatic
+        schedule validation, schedule versioning and a mechanism to enable users to send schedules for peer review</b>.
+    </p>
+    <p>
+        Also provided is access control to your schedules. Schedules belong to a team and the team(s) available to a user
+        are derived from LDAP roles for Cloud access - see Section 7 of
+        <a href="http://confluence-nam.lmera.ericsson.se/pages/viewpage.action?pageId=30905470">this document</a>
+        for details on access to the SPP Cloud areas. Any user of TAF Scheduler may view any schedule, but he or she may
+        only edit schedules that belong to his or her team.
+    </p>
+    <p>
+        In addition to the schedule creation, validation and review functionality outlined above, TAF Scheduler also provides
+        functionality to <b>record the execution history of Maintrack schedules</b> in concert with
+        <a href="http://taf.lmera.ericsson.se/taflanding/tedocs/latest/index.html" target="_blank">TAF Test Executor</a>.
+        That is, each time that TAF Test Executor retrieves a schedule from TAF Scheduler and executes it, it reports
+        back the Product ISO version, Testware ISO version that were used in the test run. This data is stored in the
+        TAF Scheduler database enabling a <b>recreation of that test run at any point in the future</b>.
+    </p>
+    <p>
+        Navigate the menu on the left to read about TAF Scheduler's features in detail.
+    </p>
+</div>

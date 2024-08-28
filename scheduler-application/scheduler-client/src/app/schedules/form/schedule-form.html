@@ -1,0 +1,210 @@
+<div class="scheduleForm col-xs-12 col-md-10 col-md-offset-1">
+    <div ncy-breadcrumb></div>
+    <span class="label label-info scheduleForm-kgbIndicator"
+          ng-hide="vm.showDropSelector()">KGB + N</span>
+    <div class="row">
+        <dropselector disable-controls="true"
+                      class="col-xs-12 col-md-8 col-lg-12 dropSelector-noPadding"
+                      ng-show="vm.showDropSelector()"></dropselector>
+    </div>
+    <div class="scheduleForm-NameControl">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+                <label class="control-label" for="scheduleName">Schedule name</label>
+                <div class="input-group">
+                    <input type="text" class="form-control"
+                           id="scheduleName"
+                           ng-model="vm.scheduleName"><span class="input-group-addon">.xml</span>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3"
+                 ng-show="vm.showDropSelector()">
+                <label for="scheduleType" class="control-label">Type</label>
+                <select class="form-control" id="scheduleType"
+                        ng-model="vm.selectedType"
+                        ng-disabled="vm.editedSchedule"
+                        ng-options="type.name for type in vm.scheduleTypes track by type.name">
+                </select>
+            </div>
+            <div class="col-xs-12 col-sm-4 scheduleForm-ActionButtonHolder">
+                <div class="scheduleForm-ActionButtons">
+                    <a id="validateButton" class="btn btn-success scheduleForm-ValidateButton" ng-click="vm.validateSchedules()">Validate</a>
+                    <a id="saveButton" ng-disabled="!vm.hasRole(vm.selectedTeam)" class="btn btn-primary scheduleForm-SaveButton" ng-click="vm.save()">Save</a>
+                    <a id="cancelButton" class="btn btn-default" href="#/schedules">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="scheduleForm-TeamControl">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+                <label for="scheduleTeam" class="control-label">Team</label>
+                <select class="form-control" id="scheduleTeam"
+                        ng-model="vm.selectedTeam"
+                        ng-options="role for role in vm.availableRoles">
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row scheduleForm-XmlEditorHolder">
+        <div class="col-xs-12 col-sm-8">
+            <label class="control-label">Schedule XML Version {{vm.scheduleVersion}}</label>
+            <i class="fa fa-info-circle"
+               popover-title="{{vm.editorPopover.title}}"
+               popover-template="vm.editorPopover.template"
+               popover-trigger="focus"
+               popover-placement="right"
+               tabindex="1"></i>
+            <script type="text/ng-template" id="editorPopover.html">
+                <div>
+                    After adding testware to editor, you can autocomplete suites.<br>
+                    Click 'Ctrl + .' for autocompletion.
+                </div>
+            </script>
+            <i class="fa fa-exclamation-triangle scheduleForm-warningIcon"
+               ng-show="vm.scheduleValidationFailed"
+               popover-trigger="focus"
+               popover-template="vm.validationPopover.template"
+               popover-placement="right"
+               tabindex="2"></i>
+            <script type="text/ng-template" id="validationPopover.html">
+                <div ng-repeat="entry in vm.validationPopover.results">
+                    <div class="scheduleForm-popoverTitle">
+                        <span class="badge">{{entry.schemaErrors.length + entry.suiteErrors.length + entry.includeErrors.length + entry.testCampaignErrors.length}}</span>
+                        <span>{{entry.scheduleName}}<span ng-show="entry.scheduleVersion !== null"> (Version {{entry.scheduleVersion}})</span></span>
+                    </div>
+                    <div class="scheduleForm-validationError" ng-repeat="error in entry.schemaErrors">
+                        <span class="scheduleForm-lineNumber"
+                              ng-show="error.errorRange.startLine != error.errorRange.endLine">[Lines {{error.errorRange.startLine}}&#45;{{error.errorRange.endLine}}]</span>
+                        <span class="scheduleForm-lineNumber"
+                              ng-show="error.errorRange.startLine == error.errorRange.endLine">[Line {{error.errorRange.startLine}}]</span>
+                            {{error.message}}
+                    </div>
+                    <div class="scheduleForm-validationError" ng-repeat="error in entry.suiteErrors">
+                        <span class="scheduleForm-lineNumber"
+                              ng-show="error.errorRange.startLine != error.errorRange.endLine">[Lines {{error.errorRange.startLine}}&#45;{{error.errorRange.endLine}}]</span>
+                        <span class="scheduleForm-lineNumber"
+                              ng-show="error.errorRange.startLine == error.errorRange.endLine">[Line {{error.errorRange.startLine}}]</span>
+                            {{error.message}}
+                    </div>
+                    <div class="scheduleForm-validationError" ng-repeat="error in entry.includeErrors">
+                        <span class="scheduleForm-lineNumber"
+                              ng-show="error.errorRange.startLine != error.errorRange.endLine">[Lines {{error.errorRange.startLine}}&#45;{{error.errorRange.endLine}}]</span>
+                        <span class="scheduleForm-lineNumber"
+                              ng-show="error.errorRange.startLine == error.errorRange.endLine">[Line {{error.errorRange.startLine}}]</span>
+                            {{error.message}}
+                    </div>
+                    <div class="scheduleForm-validationError" ng-repeat="error in entry.testCampaignErrors">
+                        <span class="scheduleForm-lineNumber"
+                              ng-show="error.errorRange.startLine != error.errorRange.endLine">[Lines {{error.errorRange.startLine}}&#45;{{error.errorRange.endLine}}]</span>
+                        <span class="scheduleForm-lineNumber"
+                              ng-show="error.errorRange.startLine == error.errorRange.endLine">[Line {{error.errorRange.startLine}}]</span>
+                            {{error.message}}
+                    </div>
+                </div>
+            </script>
+
+            <div class="scheduleForm-editorButtons">
+                <div id="addTagsButtonsBlock" class="scheduleForm-iconsGroup btn-group" ng-show="vm.editorStatus.isActive && !vm.editorStatus.isInsideTag">
+                    <button id="addEnvironmentTagsButton" class="btn btn-default" ng-click="vm.addEnvironmentTags()" title="Add 'env-properties' tags"><i class="fa fa-laptop"></i></button>
+                    <button id="addPropertyTagsButton" class="btn btn-default" ng-click="vm.addPropertyTags()" title="Add 'properties' tags"><i class="fa fa-sitemap"></i></button>
+                    <button id="addItemGroupTagsButton" class="btn btn-default" ng-click="vm.addItemGroupTags()" title="Add 'item-group' tags"><i class="fa fa-cubes"></i></button>
+                    <button id="addItemTagsButton" class="btn btn-default" ng-click="vm.addItemTags()" title="Add 'item' tags"><i class="fa fa-cube"></i></button>
+                    <button id="addManualItemTagsButton" class="btn btn-default" ng-click="vm.addManualItemTags()" title="Add 'manual-item' tags"><i class="fa fa-user"></i></button>
+                    <button id="addTestCampaignsTagsButton" class="btn btn-default" ng-click="vm.addTestCampaignsTags()" title="Add 'test-campaigns' tags"><i class="fa fa-cogs"></i></button>
+                    <button id="addTestCampaignTagsButton" class="btn btn-default" ng-click="vm.addTestCampaignTags()" title="Add 'test-campaign' tags"><i class="fa fa-cog"></i></button>
+                    <button id="addCommentsBlockButton" class="btn btn-default" ng-click="vm.addCommentsBlock()" title="Add comments"><i class="fa fa-comment-o"></i></button>
+                    <button id="includeScheduleButton" class="btn btn-default" ng-click="vm.includeSchedules()" title="Include schedule"><i class="fa fa-plus-square-o"></i></button>
+                </div>
+                <div id="addItemAttributesButtonsBlock" class="scheduleForm-iconsGroup btn-group" ng-show="vm.editorStatus.isActive && vm.editorStatus.isInsideTag && vm.editorStatus.tagName === 'item'">
+                    <button id="addStopOnFailAttributeButton" class="btn btn-default" ng-click="vm.addStopOnFailAttribute()" title="Add 'stop-on-fail' attribute"><i class="fa fa-bug"></i></button>
+                    <button id="addTimeoutAttributeButton" class="btn btn-default" ng-click="vm.addTimeoutAttribute()" title="Add 'timeout-in-seconds' attribute"><i class="fa fa-clock-o"></i></button>
+                </div>
+                <div id="addItemGroupValuesButtonsBlock" class="scheduleForm-iconsGroup btn-group" ng-show="vm.editorStatus.isActive && vm.editorStatus.isInsideTag && vm.editorStatus.tagName === 'item-group'">
+                    <button id="addParallelAttributeButton" class="btn btn-default" ng-click="vm.addParallelAttribute()" title="Add 'parallel' attribute"><i class="fa fa-align-justify"></i></button>
+                </div>
+                <div id="addPropertyAttributesButtonsBlock" class="scheduleForm-iconsGroup btn-group" ng-show="vm.editorStatus.isActive && vm.editorStatus.isInsideTag && vm.editorStatus.tagName === 'property'">
+                    <button id="addPropertyAttributesButton" class="btn btn-default" ng-click="vm.addPropertyAttributes()" title="Add 'type' and 'key' attributes"><i class="fa fa-tags"></i></button>
+                </div>
+                <div id="addTestCampaignAttributesButtonsBlock" class="scheduleForm-iconsGroup btn-group" ng-show="vm.editorStatus.isActive && vm.editorStatus.isInsideTag && vm.editorStatus.tagName === 'test-campaign'">
+                    <button id="addTestCampaignAttributeButton" class="btn btn-default" ng-click="vm.addTestCampaignAttribute()" title="Add 'id'' attribute"><i class="fa fa-crosshairs"></i></button>
+                </div>
+            </div>
+
+            <div class="panel panel-default scheduleForm-editor"
+                 ui-ace="{
+                        onLoad: vm.xmlEditorLoaded,
+                        onChange: vm.xmlEditorChanged,
+                        theme: 'eclipse',
+                        mode: 'xml',
+                        firstLineNumber: 1,
+                        showPrintMargin: false,
+                        advanced: {
+                              enableSnippets: true,
+                              enableBasicAutocompletion: true,
+                              enableLiveAutocompletion: true
+                        }
+                    }">
+            </div>
+            <textarea class="scheduleForm-xml scheduleForm-xml_hidden"
+                      id="scheduleForm-xml"
+                      ng-model="vm.xmlEditorHiddenContent"
+                      ng-change="vm.changeEditorContent()"></textarea>
+            <uib-tabset>
+                <uib-tab ng-repeat="schedule in vm.includedSchedules">
+                    <uib-tab-heading>
+                        <span class="scheduleForm-tabLabel">{{schedule.name}}: v{{schedule.version}}</span>
+                    </uib-tab-heading>
+                    <div>
+                        <div class="panel panel-default" ui-ace="{
+                                    onLoad: vm.displayIncludedScheduleXml,
+                                    theme: 'eclipse',
+                                    mode: 'xml',
+                                    showPrintMargin: false
+                                }" readonly>
+                        </div>
+                        <br>
+                    </div>
+                </uib-tab>
+            </uib-tabset>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+            <div us-spinner=""
+                 spinner-key="scheduleForm-spinner"
+                 spinner-start-active="true"
+                 class="app-spinner scheduleForm-spinner"
+                 ng-show="vm.showTestwareSpinner"></div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading bold-text">
+                    <span>Testware</span>
+                    <a class="scheduleForm-iconHolder" href="" ng-click="vm.refreshTestwareList()">
+                        <i class="fa fa-refresh" title="Refresh Testware List"></i>
+                    </a>
+                </div>
+                <input type="text" class="form-control" placeholder="Type to filter packages" ng-model="vm.query">
+                <div class="scheduleForm-scrollable">
+                    <ul class="list-group scheduleForm-testwareList">
+                        <li ng-class="['list-group-item', 'scheduleForm-groupItem', {'active': testware.selected, 'scheduleForm-groupItem_isAdded': testware.included}]"
+                            ng-repeat="testware in vm.testwareList | filter:vm.query"
+                            ng-click="vm.setSelectedTestware($event, testware)">
+                            <div>
+                                <a href="" class="scheduleForm-actionLink"
+                                   ng-show="testware.selected"
+                                   ng-click="vm.addTestware()" title="Add testware to schedule">
+                                    <i class="fa fa-plus-square-o"></i>
+                                </a>
+                                <span class="scheduleForm-itemName">{{testware.artifactId}}</span>
+                                <span class="scheduleForm-suitesStatus" ng-show="testware.distinguishedSuites">
+                                    <i class="fa fa-exclamation-triangle" title="There are differences between the suites available for this package and the suites included in the schedule"></i>
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                    <div ng-show="!vm.testwareList.length" class="scheduleForm-noResults">No testware found.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

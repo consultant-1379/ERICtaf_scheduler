@@ -1,0 +1,1 @@
+ALTER TABLE `Schedule` ADD `type` BIGINT(20) NOT NULL;

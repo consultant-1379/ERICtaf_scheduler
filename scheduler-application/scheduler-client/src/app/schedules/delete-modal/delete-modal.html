@@ -1,0 +1,12 @@
+<div class="deleteModal">
+    <div class="modal-header">
+        <h3 class="modal-title">Delete?</h3>
+    </div>
+    <div class="modal-body deleteModal-body">
+        <span class="deleteModal-msg">Are you sure you want to delete all versions of <span class="deleteModal-scheduleName">{{vm.schedule.name}}.xml?</span></span>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="vm.deleteSchedule()">Delete</button>
+        <button class="btn btn-default" ng-click="vm.cancelAction()">Cancel</button>
+    </div>
+</div>

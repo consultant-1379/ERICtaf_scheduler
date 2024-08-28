@@ -1,0 +1,83 @@
+// injector
+// endinjector
+
+#wrap {
+    min-height: ~"calc(100% - 40px)";
+    height: ~"calc(100% - 40px)";
+}
+
+.container {
+    padding: 0;
+}
+
+h2 > .right-menu {
+    float: right;
+}
+
+.fa {
+    font-size: 14px;
+
+    &-sm {
+        font-size: 10px;
+    }
+    &-2x {
+        font-size: 20px;
+    }
+}
+
+.table-fixed tbody {
+    overflow-y: auto;
+    width: 100%;
+
+    tr:first-child > td,
+    tr:first-child > th {
+        border-top: none;
+    }
+}
+
+.error {
+    &-MessagesBox {
+        div {
+            background: url('../assets/login/errorIcon01.svg') 1px center no-repeat transparent;
+            font-size: 1.3rem;
+            vertical-align: middle;
+            line-height: 1.6rem;
+            margin: 6px 0 0 6px;
+            padding-left: 20px;
+            color: #e5182e;
+        }
+    }
+}
+
+.app {
+    &-spinner {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+    }
+}
+
+.table {
+    &-noResults {
+        height: 100%;
+        background-color: transparent !important;
+
+        td {
+            position: relative;
+            transform: translateY(30%);
+            text-align: center;
+            top: 40%;
+        }
+    }
+}
+
+.dropdown-menu {
+    width: 85%;
+}
+
+.dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
+    background-color: #6699FF;
+}

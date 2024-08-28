@@ -1,0 +1,51 @@
+.commentsModal {
+    &-title {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    &-addBlock {
+        overflow: hidden;
+        padding-top: 0;
+    }
+    &-commentsBlock {
+        overflow: auto;
+        padding: 20px 0 0;
+        max-height: 500px;
+        margin: 0 20px 20px;
+    }
+    &-noResults {
+        height: 100px;
+        line-height: 100px;
+        text-align: center;
+    }
+    &-comment {
+        width: 100%;
+        border-top: 1px solid #CCC;
+        padding-top: 5px;
+
+        &:first-child {
+            border-top: none;
+        }
+
+        &Textarea {
+            width: 100%;
+        }
+        &Author {
+            float: left;
+            color: #000;
+            font-weight: bold;
+        }
+        &Date {
+            float: right;
+        }
+        &Content {
+            white-space: pre;
+            padding: 5px 0 10px 0;
+            clear: both;
+        }
+    }
+    label {
+        white-space: nowrap;
+        vertical-align: top;
+    }
+}

@@ -1,0 +1,137 @@
+<div class="schedules col-xs-12 col-md-10 col-md-offset-1">
+    <div ncy-breadcrumb></div>
+    <div class="row schedules-dropSelector" ng-show="vm.showDropSelector">
+        <dropselector class="col-xs-12 col-md-8 col-lg-8 dropSelector-noPadding"></dropselector>
+    </div>
+    <div class="row schedules-tableHolder">
+        <div us-spinner=""
+             spinner-key="schedules-spinner"
+             spinner-start-active="true"
+             class="app-spinner schedules-spinner"
+             ng-show="vm.showSpinner()"></div>
+        <div class="col-xs-12">
+            <h2 class="schedules-tableHeader">
+                <span class="schedules-title">Schedules</span>
+                <div class="col-xs-4 col-sm-3 col-md-4 col-lg-2 schedules-teamSelector">
+                    <select class="form-control" id="team"
+                            ng-model="vm.selectedTeam"
+                            ng-options="team.name for team in vm.teams|orderBy:'name' track by team.name">
+                        <option value=''>All Teams</option>
+                    </select>
+                </div>
+                <span class="right-menu">
+                    <a id="refreshValidationStatus" class="schedules-iconLink" title="Refresh Validation Status" ng-click="vm.refreshValidationStatus()">
+                        <i class="fa fa-refresh fa-2x"></i>
+                    </a>
+                    <a id="createScheduleLink" href="#/schedules/create" class="schedules-iconLink" title="Create a new Schedule"><i class="fa fa-plus-square-o fa-2x"></i></a>
+                </span>
+            </h2>
+            <uib-tabset>
+                <uib-tab select="vm.onTabSelect('normal')">
+                    <uib-tab-heading>
+                        <span class="schedules-tabTitle">Maintrack</span>
+                    </uib-tab-heading>
+                    <table class="table table-fixed table-striped schedules-table">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Version</th>
+                            <th>Author</th>
+                            <th>Team</th>
+                            <th>Updated by</th>
+                            <th>Update Date</th>
+                            <th>Approval Status</th>
+                            <th>Validation Status</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="schedules-results" ng-repeat="schedule in vm.scheduleList|filter:vm.filterByTeam">
+                            <td class="schedule-td_name">{{schedule.name}}.xml</td>
+                            <td class="schedule-td_type">{{schedule.type.name}}</td>
+                            <td class="schedule-td_version">{{schedule.version}}</td>
+                            <td class="schedule-td_createdBy">{{schedule.createdBy}}</td>
+                            <td class="schedule-td_team">{{schedule.team}}</td>
+                            <td class="schedule-td_updatedBy">{{schedule.updatedBy}}</td>
+                            <td class="schedule-td_updated">{{schedule.updated | date: 'yyyy-MM-dd HH:mm'}}</td>
+                            <td class="schedule-td_approved">
+                                <i class="fa fa-check text-success schedules-icon" title="Approved" ng-show="schedule.approvalStatus=='APPROVED'"></i>
+                                <i class="fa fa-times text-danger schedules-icon" title="Rejected" ng-show="schedule.approvalStatus=='REJECTED'"></i>
+                                <i class="fa fa-minus-circle schedules-icon" title="Unapproved" ng-show="schedule.approvalStatus=='UNAPPROVED'"></i>
+                                <i class="fa fa-share schedules-icon" title="Pending Review" ng-show="schedule.approvalStatus=='PENDING'"></i>
+                            </td>
+                            <td class="schedule-td_validated">
+                                <i class="fa fa-check text-success schedules-icon" title="Validated" ng-show="schedule.valid"></i>
+                                <i class="fa fa-minus-circle schedules-icon" title="Not Validated" ng-show="!schedule.valid"></i>
+                            </td>
+                            <td class="schedule-td_controls">
+                                <a href="#/schedules/{{schedule.id}}" class="schedules-iconLink" title="View">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                                <a href="#/schedules/{{schedule.id}}/edit" class="schedules-iconLink" title="Edit" ng-show="vm.hasRole(schedule.team)">
+                                    <i class="fa fa-pencil-square-o"></i>
+                                </a>
+                                <a ng-click="vm.showConfirmDeleteDialog(schedule)" class="schedules-iconLink" title="Delete" ng-show="vm.hasRole(schedule.team)">
+                                    <i class="fa fa-trash-o"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </uib-tab>
+                <uib-tab select="vm.onTabSelect('kgb')">
+                    <uib-tab-heading>
+                        <span class="schedules-tabTitle">KGB+N</span>
+                    </uib-tab-heading>
+                    <table class="table table-fixed table-striped schedules-table">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Version</th>
+                            <th>Author</th>
+                            <th>Team</th>
+                            <th>Updated By</th>
+                            <th>Update Date</th>
+                            <th>Approval Status</th>
+                            <th>Validation Status</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="schedules-results" ng-repeat="schedule in vm.kgbSchedulesList|filter:vm.filterByTeam">
+                            <td class="schedule-td_name">{{schedule.name}}.xml</td>
+                            <td class="schedule-td_version">{{schedule.version}}</td>
+                            <td class="schedule-td_createdBy">{{schedule.createdBy}}</td>
+                            <td class="schedule-td_team">{{schedule.team}}</td>
+                            <td class="schedule-td_updated">{{schedule.updatedBy}}</td>
+                            <td class="schedule-td_updated">{{schedule.updated | date: 'yyyy-MM-dd HH:mm'}}</td>
+                            <td class="schedule-td_approved">
+                                <i class="fa fa-check text-success schedules-icon" title="Approved" ng-show="schedule.approvalStatus=='APPROVED'"></i>
+                                <i class="fa fa-times text-danger schedules-icon" title="Rejected" ng-show="schedule.approvalStatus=='REJECTED'"></i>
+                                <i class="fa fa-minus-circle schedules-icon" title="Unapproved" ng-show="schedule.approvalStatus=='UNAPPROVED'"></i>
+                                <i class="fa fa-share schedules-icon" title="Pending Review" ng-show="schedule.approvalStatus=='PENDING'"></i>
+                            </td>
+                            <td class="schedule-td_validated">
+                                <i class="fa fa-check text-success schedules-icon" title="Validated" ng-show="schedule.valid"></i>
+                                <i class="fa fa-minus-circle schedules-icon" title="Not Validated" ng-show="!schedule.valid"></i>
+                            </td>
+                            <td class="schedule-td_controls">
+                                <a href="#/schedules/{{schedule.id}}" class="schedules-iconLink" title="View">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                                <a href="#/schedules/{{schedule.id}}/edit" class="schedules-iconLink" title="Edit" ng-show="vm.hasRole(schedule.team)">
+                                    <i class="fa fa-pencil-square-o"></i>
+                                </a>
+                                <a ng-click="vm.showConfirmDeleteDialog(schedule)" class="schedules-iconLink" title="Delete" ng-show="vm.hasRole(schedule.team)">
+                                    <i class="fa fa-trash-o"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </uib-tab>
+            </uib-tabset>
+        </div>
+    </div>
+</div>

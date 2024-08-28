@@ -1,0 +1,33 @@
+<div class="suitesModal">
+    <div class="modal-header">
+        <h3 class="modal-title">Suites to add:</h3>
+    </div>
+    <div class="modal-body suitesModal-body">
+        <div us-spinner="{radius:10, width:4, length: 10}"
+             spinner-key="suitesModal-spinner"
+             spinner-start-active="true"
+             class="app-spinner suitesModal-spinner"
+             ng-show="vm.showSuitesLoadSpinner"></div>
+
+        <ul class="list-unstyled suitesModal-listHolder">
+            <li ng-repeat="suite in vm.suites" class="suitesModal-suiteItem">
+                <label>
+                    <input type="checkbox"
+                          class="suitesModal-suiteCheckbox"
+                          checklist-model="vm.checkedSuites"
+                          checklist-change="vm.suitesChanged()"
+                          checklist-value="suite">
+                    <span class="suitesModal-suiteName">{{suite}}</span>
+                    <i class="fa fa-check-circle suitesModal-infoIcon" ng-show="vm.isSelectedSuite(suite)" title="Suite is added in the schedule."></i>
+                </label>
+            </li>
+            <li class="suitesModal-noItemsFound" ng-show="vm.suites == 0 && !vm.showSuitesLoadSpinner">
+                Suites for selected testware are not found.
+            </li>
+        </ul>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="vm.confirmAction()" ng-disabled="vm.disableConfirmButton">OK</button>
+        <button class="btn btn-default" ng-click="vm.cancelAction()">Cancel</button>
+    </div>
+</div>

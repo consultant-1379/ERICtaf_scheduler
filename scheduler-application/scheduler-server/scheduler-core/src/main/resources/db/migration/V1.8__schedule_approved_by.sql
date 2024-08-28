@@ -1,0 +1,1 @@
+ALTER TABLE `Schedule` ADD `approvedBy` VARCHAR(255) DEFAULT NULL AFTER `approved`;

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<schedule xmlns="http://taf.lmera.ericsson.se/schema/te"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://taf.lmera.ericsson.se/schema/te http://taf.lmera.ericsson.se/schema/te/schedule/xml">
+
+    <item>
+        <name>Item 1 without suites</name>
+        <component>com.ericsson.cifwk.single:single-testware:1.0.0</component>
+        <suites/>
+    </item>
+    <item>
+        <name>Item 2</name>
+        <component>com.ericsson.cifwk.single:single-testware:1.0.1</component>
+        <suites>suite1.xml</suites>
+    </item>
+    <item>
+        <name>Item 3</name>
+        <component>com.ericsson.cifwk.single:single-testware:1.0.2</component>
+        <suites>suite1.xml,suite2.xml</suites>
+    </item>
+</schedule>

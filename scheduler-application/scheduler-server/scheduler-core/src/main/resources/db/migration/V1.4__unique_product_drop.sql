@@ -1,0 +1,1 @@
+ALTER TABLE `ProductDrop` ADD CONSTRAINT `UC_DROP_NAME_PRODUCT_ID` UNIQUE (`name`, `productId`);

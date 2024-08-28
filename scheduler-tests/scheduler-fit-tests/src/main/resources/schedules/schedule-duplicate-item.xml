@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<schedule xmlns="http://taf.lmera.ericsson.se/schema/te"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://taf.lmera.ericsson.se/schema/te http://taf.lmera.ericsson.se/schema/te/schedule/xml">
+    <item>
+        <name>duplicate</name>
+        <component>com.ericsson.oss.services.security.identitymgmt:ERICTAFgenericidentitymgmtservice_CXP9031924</component>
+        <suites>RoleManagement.xml, TargetGroupManagement.xml, TargetGroupPerformance.xml, TargetGroupPerformanceFull.xml</suites>
+    </item>
+    <item>
+        <name>duplicate</name>
+        <component>com.ericsson.oss.services.security.identitymgmt:ERICTAFgenericidentitymgmtservice_CXP9031924</component>
+        <suites>RoleManagement.xml, TargetGroupManagement.xml, TargetGroupPerformance.xml, TargetGroupPerformanceFull.xml</suites>
+    </item>
+</schedule>

@@ -1,0 +1,32 @@
+<div class="approvalOptions" id="saveOrSendDialog">
+    <div class="modal-header">
+        <h2 class="options-title">
+            <i class="fa fa-envelope fa-2x" id="approvalOptions-success"></i>
+            <span class="approvalOptions-title">Send for Approval</span>
+        </h2>
+    </div>
+    <div class="modal-body approvalOptions-body">
+        <h3 class="options-title approvalOptions-text">
+            <div ng-hide="vm.isValidSchedule">
+                <p>
+                    <i class="fa fa-exclamation-triangle fa-2x approvalOptions-warning" id="approvalOptions-warningIcon"></i>
+                    <b class="approvalOptions-warning">Warning: </b>
+                    <b>This schedule has failed validation.
+                        If you wish to save this schedule anyway, please
+                        follow the steps below</b>
+                </p>
+            </div>
+            <p>Enter the emails or signums of the users that you
+            wish to send this schedule to for approval.</p>
+            <p>Reviewers should be separated using a comma or
+            by pressing enter.</p></h3>
+        <tags-input ng-model="vm.selected" placeholder="Enter Reviewer Details" add-on-space="true" text="vm.typingReviewer">
+            <auto-complete source="vm.getApprovers($query)"></auto-complete>
+        </tags-input>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-disabled="!vm.hasSelectedApprovers()" ng-click="vm.sendAndSaveSchedule()">Send & Save</button>
+        <button class="btn btn-primary" ng-click="vm.saveSchedule()">Save</button>
+        <button class="btn btn-default" ng-click="vm.cancelAction()">Cancel</button>
+    </div>
+</div>

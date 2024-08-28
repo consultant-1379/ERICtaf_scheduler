@@ -1,0 +1,31 @@
+<div class="commentsModal">
+    <div class="modal-header">
+        <h2 class="modal-title">
+            <i class="fa fa-comments-o fa-2x"></i>
+            <span class="commentsModal-title">Review Comments</span>
+        </h2>
+    </div>
+    <div class="modal-body commentsModal-addBlock" ng-show="vm.hasRole(vm.schedule.team)">
+        <div class="commentsModal-text approvalOptions-text">Your comment for this review</div>
+        <textarea class="commentsModal-commentTextarea" ng-model="vm.comment"></textarea>
+        <button class="btn btn-primary" ng-click="vm.addCommentAction()" ng-disabled="!vm.isAddCommentEnabled()">Add</button>
+    </div>
+    <div class="modal-body commentsModal-commentsBlock">
+        <div ng-repeat="commentObj in vm.commentsList" class="commentsModal-comment">
+            <div class="commentsModal-commentAuthor">{{commentObj.createdBy}}</div>
+            <div class="commentsModal-commentDate">{{commentObj.created | date: 'yyyy-MM-dd HH:mm'}}
+                <i>Version: {{commentObj.scheduleVersion}}</i></div>
+            <div class="commentsModal-commentContent">{{commentObj.message}}</div>
+        </div>
+        <div ng-show="!vm.commentsList.length" class="commentsModal-noResults">No comments found.</div>
+
+        <div us-spinner=""
+             spinner-key="commentsModal-spinner"
+             spinner-start-active="true"
+             class="app-spinner commentsModal-spinner"
+             ng-show="vm.showSpinner()"></div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="vm.closeAction()">Close</button>
+    </div>
+</div>

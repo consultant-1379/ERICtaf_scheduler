@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<schedule xmlns="http://taf.lmera.ericsson.se/schema/te"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://taf.lmera.ericsson.se/schema/te http://taf.lmera.ericsson.se/schema/te/schedule/xml">
+    <manual-item>
+        <test-campaigns>
+            <test-campaign id="1"></test-campaign>
+            <test-campaign id="2"></test-campaign>
+        </test-campaigns>
+    </manual-item>
+    <item-group parallel="true">
+        <item-group parallel="false">
+            <item>
+                <name>Step 11</name>
+                <component>com.ericsson.cifwk.taf.executor:te-taf-testware_cxp1234567</component>
+                <suites>one.xml</suites>
+            </item>
+        </item-group>
+    </item-group>
+</schedule>

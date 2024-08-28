@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<schedule xmlns="http://taf.lmera.ericsson.se/schema/te"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://taf.lmera.ericsson.se/schema/te http://taf.lmera.ericsson.se/schema/te/schedule/xml">
+ 
+    <item>
+        <name>Preparation step</name>
+        <component>com.groupId:preparation</component>
+        <suites>1.xml</suites>
+        <groups>installation</groups>
+    </item>
+ 
+    <item-group parallel="true">
+        <item timeout-in-seconds="60">
+            <name>Parallel 1</name>
+            <component>com.groupId:artifactId</component>
+            <suites>2.xml</suites>
+        </item>
+        <item stop-on-fail="true">
+            <name>Parallel 2</name>
+            <component>com.groupId:artifactId</component>
+            <suites>3.xml</suites>
+        </item>
+        <item>
+            <name>Parallel 3</name>
+            <component>com.groupId2:artifactId2</component>
+            <suites>4.xml,5.xml,6.xml</suites>
+        </item>
+    </item-group>
+ 
+    <item>
+        <name>Finalization step</name>
+        <component>com.groupId:preparation</component>
+        <suites>1.xml</suites>
+        <groups>acceptance,cleanup</groups>
+    </item>
+ 
+</schedule>

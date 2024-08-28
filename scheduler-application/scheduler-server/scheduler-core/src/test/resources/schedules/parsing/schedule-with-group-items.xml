@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<schedule xmlns="http://taf.lmera.ericsson.se/schema/te"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://taf.lmera.ericsson.se/schema/te http://taf.lmera.ericsson.se/schema/te/schedule/xml">
+
+    <item-group parallel="true">
+        <item>
+            <name>Group item 1</name>
+            <component>com.ericsson.cifwk.group:group-testware</component>
+            <suites>suite1.xml</suites>
+        </item>
+        <item>
+            <name>Group item 2</name>
+            <component>com.ericsson.cifwk.group:group-testware:1.0.1</component>
+            <suites>suite2.xml</suites>
+        </item>
+        <item>
+            <name>Group item 3</name>
+            <component>com.ericsson.cifwk.group:group-testware:LATEST</component>
+            <suites>suite3.xml</suites>
+        </item>
+    </item-group>
+</schedule>

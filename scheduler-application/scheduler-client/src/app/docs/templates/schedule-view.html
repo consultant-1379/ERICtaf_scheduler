@@ -1,0 +1,41 @@
+<div class="schedules-docTemplate">
+    <h2 class="schedules-docTemplate-heading">View a Schedule</h2>
+    <br><br>
+    <img ng-src="{{vm.scheduleView}}" class="scheduleDocs-image">
+    <br><br>
+    <div>
+        <h3>1 - Schedule Details</h3>
+        <p>
+            This section of the page contains the relevant schedule details. Bear in mind that drop details
+            won't be shown for KGB+N schedules.
+        </p>
+    </div>
+    <div>
+        <h3>2 - XML Viewer</h3>
+        <p>
+            This area of the page shows the schedule XML.
+        </p>
+    </div>
+    <div>
+        <h3>3 - Controls</h3>
+        <p>
+            At the top right of the XML viewer there are a group of controls. From left to right these are:
+            <ul>
+                <li>
+                    <i class="fa fa-link"></i> Copy the schedule XML to the clipboard.
+                </li>
+                <li>
+                    <i class="fa fa-comments-o"></i>
+                    Examine the review comments for this schedule - more on schedule reviews
+                    <a ui-sref="documentation.schedule-review">here</a>.
+                </li>
+                <li>
+                    <i class="fa fa-retweet"></i> <a ui-sref="documentation.schedule-review">Review the schedule</a>.
+                </li>
+                <li><i class="fa fa-pencil-square-o"></i>
+                    <a ui-sref="documentation.schedule-create">Edit the schedule</a>
+                </li>
+            </ul>
+        </p>
+    </div>
+</div>

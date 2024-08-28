@@ -1,0 +1,64 @@
+<div class="schedules-docTemplate">
+    <h2 class="schedules-docTemplate-heading">Schedule List</h2>
+    <p>When you log into TAF Scheduler you will be directed to the page shown below (sample data shown in the image).</p>
+    <br><br>
+    <img ng-src="{{vm.schedulesList}}" class="scheduleDocs-image">
+    <br><br>
+    <div>
+        <h3>1 - Product and Drop Filter</h3>
+        <p>
+            Maintrack schedules are created on a per drop basis. Select a product and drop combination to see the
+            schedules that have been created for that particular drop.
+        </p>
+    </div>
+    <div>
+        <h3>2 - Team Filter</h3>
+        <p>
+            Schedules belong to teams and the team a schedule belongs to is determined when it is created. The teams(s)
+            you belong to are derived from LDAP roles that grant access to the various cloud areas. <b>If you find that you
+            do not have the appropriate rights to edit or review a schedule you should contact the scrum master of the
+            team in question and request that you be granted access rights to their cloud area</b>. See section 7 of
+            <a href="http://confluence-nam.lmera.ericsson.se/pages/viewpage.action?pageId=30905470" target="_blank">this page</a>
+            for details.
+        </p>
+    </div>
+    <div>
+        <h3>3 - KGB+N Tab</h3>
+        <p>
+            Switch to the KGB+N tab to see a list of KGB+N schedules. KGB+N schedules are not tied to any particular
+            drop so you'll see that the option to select a product and drop isn't available. KGB+N schedules can be
+            filtered by team as before.
+        </p>
+    </div>
+    <div>
+        <h3>4 - Table Highlighting</h3>
+        <p>
+            A table row is highlighted in green <b>if and ony if</b> it is <b>approved</b>. Schedules
+            are not discoverable and therefore not executable by
+            <a href="http://taf.lmera.ericsson.se/taflanding/tedocs/latest/index.html" target="_blank">TAF Test Executor</a>
+            if they are not approved. Schedule approval is done through the review process - more on this in the
+            <a ui-sref="documentation.schedule-review">Review a Schedule</a> section.
+        </p>
+    </div>
+    <div>
+        <h3>5 - Action Block</h3>
+        <p>
+            The action icons allow you to view, edit or delete a schedule. Note that you only have write access to the
+            schedule if you are in the team that owns the schedule. If you're not, the edit and delete icons for that
+            schedule won't be visible. This can be seen on the 4th row of the table, where the currently logged in user
+            has read only access for 'MTE.xml'.
+        </p>
+    </div>
+    <div>
+        <h3>6 - Add schedule icon</h3>
+        <p>
+            Clicking this icon allows you to create a new schedule. Bear in mind that if the 'Maintrack' tab is active
+            you will be directed to a page where you can create a schedule for the currently selected drop.
+        </p>
+        <p>
+            If however the 'KGB+N' tab is selected you will be directed to a page where you create a KGB+N schedule
+            which is not tied to any drop. See detailed information on schedule creation and editing
+            <a ui-sref="documentation.schedule-create">here</a>
+        </p>
+    </div>
+</div>

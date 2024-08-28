@@ -1,0 +1,363 @@
+swagger: '2.0'
+info:
+  title: CI Portal REST API for TAF Scheduler
+  description: API for product information retrieval
+  version: "1.0.0"
+# the domain of the service
+host: cifwk-oss.lmera.ericsson.se
+# array of all schemes that your API supports
+schemes:
+  - https
+  - http
+# will be prefixed to all paths
+basePath: /api
+produces:
+  - application/json
+paths:
+  /products:
+    get:
+      summary: Get list of products
+      description: |
+        Response includes list of products with their details.
+      tags:
+        - Product List
+      responses:
+        200:
+          description: An array of products
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Product'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /products/{name}:
+    get:
+      summary: Product
+      description: |
+        Retrieve detailed information about specified product by name.
+      parameters:
+        - name: name
+          in: path
+          description: Product name
+          required: true
+          type: string
+      tags:
+        - Product
+      responses:
+        200:
+          description: Product object
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Product'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /products/{name}/drops:
+    get:
+      summary: Get drops in product
+      description: |
+        Display list with all drops for specfied product. 
+        Drop informataion include id, name, version and timestamp for sorting purposes.
+      parameters:
+        - name: name
+          in: path
+          description: Product name
+          required: true
+          type: string
+        - name: hasIso
+          in: query
+          required: false
+          type: boolean
+      tags:
+        - Drops in product
+      responses:
+        200:
+          description: An array of drops
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Drop'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /products/{name}/drops/{dropName}/isos:
+    get:
+      summary: Isos in drop
+      description: |
+        Retrieve detailed information for all isos in drop for product
+      parameters:
+        - name: name
+          in: path
+          description: Product name
+          required: true
+          type: string
+        - name: dropName
+          in: path
+          description: Drop name
+          required: true
+          type: string
+      tags:
+        - Iso in drop
+      responses:
+        200:
+          description: List of isos, empty list if no isos exist
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Iso'
+        404:
+          description: Product or Drop not found
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /drops/{dropId}:
+    get:
+      summary: Drop information
+      description: Display detailed information for drop by specifying it's unique id
+      parameters:
+        - name: dropId
+          in: path
+          description: Drop unique id
+          required: true
+          type: number
+      tags:
+        - Drop
+      responses:
+        200:
+          description: Single drops information
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Drop'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /drops/{dropId}/iso:
+    get:
+      summary: All ISO included in drop 
+      description: Display ist with all ISO included in drop. Each iso has id, display name and version.
+      parameters:
+        - name: dropId
+          in: path
+          description: Drop unique id
+          required: true
+          type: number
+      tags:
+        - ISO list in Drop
+      responses:
+        200:
+          description: ISO list in drop
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Iso'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'  
+  /drops/{dropId}/isos/{isoId}/testwares:
+    get:
+      summary: Testware defined by Drop and ISO
+      description: |
+        Get list with Testware that is described by Drop and ISO.
+        Path Parameters include id for drop and iso which uniquely identify each.
+        Service returns array with detailed testware information.
+        Its important that Testware with same artifactId and groupId have same id (unique identifier), to be accesed by URL and easy identification of new versions availability
+      parameters:
+        - name: dropId
+          in: path
+          type: number
+          description: Drop unique identifier
+        - name: isoId
+          in: path
+          type: number
+          description: ISO unique identifier
+      tags:
+        - Testware in ISO
+      responses:
+        200:
+          description: Testware list
+          schema:
+            type: array
+            $ref: '#/definitions/Testware'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /drops/{dropId}/isos/{isoId}/packages:
+    get:
+      summary: Testware defined by Drop and ISO
+      description: |
+        Get ISO detailed information
+        Its important that Package with same artifactId and groupId have same id
+        (unique identifier)
+        to be accesed by URL and easy identification of new versions availability
+      parameters:
+        - name: dropId
+          in: path
+          type: number
+          description: Drop unique identifier
+        - name: isoId
+          in: path
+          type: number
+          description: ISO unique identifier
+      tags:
+        - Packages in ISO
+      responses:
+        200:
+          description: Packages list
+          schema:
+            type: array
+            $ref: '#/definitions/Package'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'   
+  /testwares/{id}:
+    get:
+      summary: Testware details
+      parameters:
+        - name: id
+          in: path
+          type: number
+          description: unique testware id
+      tags:
+        - Testware
+      responses:
+        200:
+          description: Testware item
+          schema:
+            type: object
+            $ref: '#/definitions/Testware'
+  /packages/{id}:
+    get:
+      summary: Package details
+      parameters:
+        - name: id
+          in: path
+          type: number
+          description: unique testware id
+      tags:
+        - Package
+      responses:
+        200:
+          description: Package item
+          schema:
+            type: object
+            $ref: '#/definitions/Package'   
+  /isos/{isoId}:
+    get:
+      summary: ISO details
+      description: |
+        Get details about ISO.
+      parameters:
+        - name: isoId
+          in: path
+          type: number
+          description: ISO unique identifier
+      tags:
+        - ISO
+      responses:
+        200:
+          description: ISO information
+          schema:
+            $ref: '#/definitions/Iso'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  Product:
+    properties:
+      product_id:
+        type: number
+        description: Unique identifier representing a specific product
+      name:
+        type: string
+        description: Name of product.
+  Drop:
+    properties:
+      id:
+        type: string
+        description: Unique identifier of drop.
+      version:
+        type: string
+        description: Display name for drop
+      timestamp:
+        type: number
+        description: Create date for drop
+  Iso:
+    properties:
+      id:
+        type: string
+        description: Unique identifier of ISO.
+      name:
+        type: string
+        description: Display name for ISO
+      version:
+        type: string
+        description: ISO version
+      create_date:
+        type: number
+        description: Create date for ISO
+      kgbReady:
+        type: boolean
+        description: If Iso is set as KGB ready
+      passedTesting:
+        type: boolean
+        description: If Iso passed testing
+      build_date:
+        type: number
+        description: Build date from CI portal ISO info
+  Package:
+    properties:
+      id:
+        type: string
+        description: Unique identifier of Package. Each new version of package should have different id.
+      group:
+        type: string
+        description: Package group id
+      name:
+        type: string
+        description: Package name
+      version:
+        type: string
+        description: Package version
+      cxp_number:
+        type: string
+        description: CXP number for package
+  Testware:
+    properties:
+      id:
+        type: string
+        description: Unique identifier of Package. Each new version of package should have different id.
+      group:
+        type: string
+        description: Package group id
+      name:
+        type: string
+        description: Package name
+      version:
+        type: string
+        description: Package version
+      cxp_number:
+        type: string
+        description: CXP number for package        
+  Error:
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string

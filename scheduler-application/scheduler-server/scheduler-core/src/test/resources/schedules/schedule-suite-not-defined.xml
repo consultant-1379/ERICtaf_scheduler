@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<schedule xmlns="http://taf.lmera.ericsson.se/schema/te"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://taf.lmera.ericsson.se/schema/te http://taf.lmera.ericsson.se/schema/te/schedule/xml">
+    <item>
+        <name>Wrong item without component</name>
+        <component>com.ericsson.cifwk.taf.executor:art:1</component>
+    </item>
+
+    <item-group parallel="true">
+        <item timeout-in-seconds="60">
+            <name>Wrong item #2</name>
+            <component>com.ericsson.cifwk.taf.executor:artifact1</component>
+        </item>
+    </item-group>
+</schedule>

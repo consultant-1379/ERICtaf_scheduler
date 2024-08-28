@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.ericsson.cifwk</groupId>
+        <artifactId>scheduler-application</artifactId>
+        <version>1.0.5-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>scheduler-server</artifactId>
+    <packaging>pom</packaging>
+    <name>TAF Scheduler Server</name>
+
+    <modules>
+        <module>scheduler-bom</module>
+        <module>scheduler-core</module>
+        <module>scheduler-war</module>
+    </modules>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <test.source>${project.basedir}/src/test/java</test.source>
+        <test.output>${project.build.directory}/test-classes</test.output>
+    </properties>
+
+    <build>
+        <testSourceDirectory>${test.source}</testSourceDirectory>
+        <testOutputDirectory>${test.output}</testOutputDirectory>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-test-source</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>add-test-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.basedir}/src/test-commons/java</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <delimiters>
+                        <delimiter>@</delimiter>
+                    </delimiters>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <!-- Integration testing support: src/itest -->
+            <id>itest</id>
+            <properties>
+                <test.source>${project.basedir}/src/itest/java</test.source>
+                <test.output>${project.build.directory}/itest-classes</test.output>
+            </properties>
+            <build>
+                <testResources>
+                    <testResource>
+                        <directory>${project.basedir}/src/itest/resources</directory>
+                    </testResource>
+                </testResources>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.18.1</version>
+                        <configuration>
+                            <reportsDirectory>${project.build.directory}/surefire-itest-reports</reportsDirectory>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+            <dependencies>
+                <dependency>
+                    <groupId>com.icegreen</groupId>
+                    <artifactId>greenmail</artifactId>
+                    <version>1.4.1</version>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
+</project>

@@ -1,0 +1,152 @@
+.scheduleForm {
+    &-NameControl, &-TeamControl {
+        margin-top: 20px;
+    }
+    &-ActionButtonHolder {
+        float: right;
+    }
+    &-ActionButtons {
+        margin-top: 22px;
+        float: right;
+    }
+    &-SaveButton, &-ValidateButton {
+        margin-right: 6px;
+    }
+    &-XmlEditorHolder {
+        padding-top: 30px;
+    }
+    &-editor {
+        clear: right;
+        margin-top: 10px;
+    }
+    &-editorButtons {
+        float: right;
+    }
+
+    &-scrollable {
+        transform-style: preserve-3d;
+        overflow-y: auto;
+        height: 512px;
+        border-radius: 0 0 4px 4px;
+    }
+
+    &-groupItem {
+        position: relative;
+        border-width: 0 0 1px 0;
+        margin-bottom: 0;
+        cursor: pointer;
+        height: 35px;
+
+        &:first-child {
+            border-radius: 0;
+        }
+        &:nth-child(2n-1):not(.active) {
+            background-color: #f9f9f9;
+
+            &.scheduleForm-groupItem_isAdded {
+                background-color: #e7f1d1;
+            }
+        }
+        &.active {
+            cursor: default;
+        }
+        &_isAdded {
+            background-color: #d0e3a2;
+        }
+        &:not(.scheduleForm-groupItem_isAdded) .scheduleForm-suitesStatus {
+            display: none;
+        }
+    }
+    &-suitesStatus {
+        display: inline-block;
+        width: 20px;
+        color: #f08a00;
+        text-align: right;
+    }
+    &-iconHolder {
+        float: right;
+
+        &:active, &:hover {
+            text-decoration: none;
+        }
+    }
+
+    &-actionLink {
+        float: left;
+        width: 20px;
+        color: #F0F0F0;
+
+        &:hover, &:active, &:visited {
+            color: #F0F0F0;
+        }
+    }
+    &-itemName {
+        float: left;
+        width: ~"calc(100% - 5px)";
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        .active & {
+            width: ~"calc(100% - 25px)";
+        }
+    }
+    &-groupItem_isAdded &-itemName {
+        width: ~"calc(100% - 20px)";
+    }
+    &-groupItem_isAdded.active &-itemName {
+        width: ~"calc(100% - 40px)";
+    }
+    &-noResults {
+        position: relative;
+        transform: translateY(-50%);
+        text-align: center;
+        top: 35%;
+    }
+    &-xml {
+        &_hidden {
+            display: none;
+        }
+    }
+    &-xmlError {
+        background-color: rgba(189, 54, 47, 0.35);
+        position: absolute;
+        z-index: 4;
+    }
+    &-warningIcon {
+        cursor: pointer;
+        color: rgb(189, 54, 47);
+    }
+    &-popoverTitle {
+        position: relative;
+        display: block;
+        padding: 10px 15px;
+        font-weight: bold;
+
+        & > .badge {
+            margin-right: 10px;
+            background-color: rgb(189, 54, 47);
+        }
+    }
+    &-validationError {
+        padding: 0 15px;
+    }
+    &-lineNumber {
+        font-weight: bold;
+        color: rgb(189, 54, 47);
+    }
+    &-XmlEditorHolder {
+        .popover {
+            max-width: 500px;
+        }
+    }
+    &-iconsGroup {
+        position: absolute;
+        right: 15px;
+
+        &.ng-hide {
+            transition: 0.25s linear all;
+            opacity: 0;
+        }
+    }
+}

@@ -1,0 +1,11 @@
+[
+    {
+        "hostname": "scheduler",
+        "ip": "atvts2827.athtem.eei.ericsson.se",
+        "type": "UNKNOWN",
+        "users": [
+            {"username": "taf", "password": "taf", "type": "web"}
+        ],
+        "ports": {"http": 8888, "ssh": 22}
+    }
+]

@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS `Users` (
+  `id`          BIGINT(20)   NOT NULL AUTO_INCREMENT,
+  `external_id`  VARCHAR(255) NULL,
+  `name`        VARCHAR(255) NULL,
+  `email`       VARCHAR(255) NULL,
+  PRIMARY KEY (`id`)
+);
+
+CREATE UNIQUE INDEX `UK_USERS` ON `Users` (`external_id` ASC);
+
+CREATE TABLE IF NOT EXISTS `ScheduleReviewers` (
+  `id`           BIGINT(20) NOT NULL     AUTO_INCREMENT,
+  `scheduleId`    BIGINT(20) NOT NULL,
+  `userId`   BIGINT(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_SCHEDULEREVIEWERS_SCHEDULE` (`scheduleId`),
+  CONSTRAINT `FK_SCHEDULEREVIEWERS_SCHEDULE` FOREIGN KEY (`scheduleId`) REFERENCES `Schedule` (`id`),
+  KEY `FK_SCHEDULEREVIEWERS_USER` (`userId`),
+  CONSTRAINT `FK_SCHEDULEREVIEWERS_USER` FOREIGN KEY (`userId`) REFERENCES `Users` (`id`)
+);

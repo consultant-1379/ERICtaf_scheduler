@@ -1,0 +1,158 @@
+<div class="scheduleView col-xs-12 col-md-10 col-md-offset-1">
+    <div ncy-breadcrumb></div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 scheduleView-detailsBlock">
+            <div class="row scheduleView-row" ng-show="vm.displayProductAndDrop">
+                <div class="col-xs-12 col-md-2 scheduleView-infoLabel">
+                    <label>Product</label>
+                </div>
+                <div class="col-xs-12 col-md-8">
+                    <span id="view-scheduleProduct">{{vm.schedule.drop.productName}}</span>
+                </div>
+            </div>
+            <div class="row scheduleView-row" ng-show="vm.displayProductAndDrop">
+                <div class="col-xs-12 col-md-2 scheduleView-infoLabel">
+                    <label>Drop</label>
+                </div>
+                <div class="col-xs-12 col-md-8">
+                    <span id="view-scheduleDrop">{{vm.schedule.drop.name}}</span>
+                </div>
+            </div>
+            <div class="row scheduleView-row">
+                <div class="col-xs-12 col-md-2 scheduleView-infoLabel">
+                    <label>Type</label>
+                </div>
+                <div class="col-xs-12 col-md-8">
+                    <span id="view-scheduleType" ng-show="vm.schedule.type">{{vm.schedule.type.name}}</span>
+                </div>
+            </div>
+            <div class="row scheduleView-row">
+                <div class="col-xs-12 col-md-2 scheduleView-infoLabel">
+                    <label>Name</label>
+                </div>
+                <div class="col-xs-12 col-md-8">
+                    <span id="view-scheduleName" ng-show="vm.schedule.name">{{vm.schedule.name}}.xml</span>
+                </div>
+            </div>
+            <div class="row scheduleView-row">
+                <div class="col-xs-12 col-md-2 scheduleView-infoLabel">
+                    <label>Team</label>
+                </div>
+                <div class="col-xs-12 col-md-8">
+                    <span id="view-scheduleTeam" ng-show="vm.schedule.team">{{vm.schedule.team}}</span>
+                </div>
+            </div>
+            <div class="row scheduleView-row">
+                <div class="col-xs-12 col-md-2 scheduleView-infoLabel">
+                    <label>Version</label>
+                </div>
+                <div class="col-xs-5 col-sm-4 col-md-3 col-lg-2">
+                    <select id="versionSelect"
+                            class="form-control"
+                            ng-options="version for version in vm.schedule.versionList"
+                            ng-change="vm.onVersionChange()"
+                            ng-model="vm.selectedVersion">
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 scheduleView-detailsBlock">
+            <div class="row scheduleView-row">
+                <div class="col-xs-12 col-md-2 scheduleView-infoLabel">
+                    <label>Validation Status</label>
+                </div>
+                <div class="col-xs-12 col-md-8">
+                        <span class="label label-success scheduleView-validation-success" ng-show="vm.validated=='VALIDATED'">Validated</span>
+                        <span class="label label-danger scheduleView-validation-error" ng-show="vm.validated=='UNVALIDATED'">Not Validated</span>
+                </div>
+            </div>
+            <div class="row scheduleView-row">
+                <div class="col-xs-12 col-md-2 scheduleView-infoLabel">
+                    <label>Approval Status</label>
+                </div>
+                    <div class="col-xs-12 col-md-2">
+                        <span class="label label-success" id="scheduleViewApproved" ng-show="vm.schedule.approvalStatus=='APPROVED'">Approved</span>
+                        <span class="label label-warning" id="scheduleViewUnapproved" ng-show="vm.schedule.approvalStatus=='UNAPPROVED'">Unapproved</span>
+                        <span class="label label-danger" id="scheduleViewRejected" ng-show="vm.schedule.approvalStatus=='REJECTED'">Rejected</span>
+                        <span class="label label-warning" id="scheduleViewPending" ng-show="vm.schedule.approvalStatus=='PENDING'">Pending</span>
+                    </div>
+            </div>
+            <div class="row scheduleView-row" ng-hide="vm.schedule.approvalStatus=='UNAPPROVED'">
+                <div class="col-xs-12 col-md-2 scheduleView-infoLabel">
+                    <label ng-show="vm.schedule.approvalStatus=='APPROVED'">Approved By</label>
+                    <label ng-show="vm.schedule.approvalStatus=='REJECTED'">Rejected By</label>
+                </div>
+                <div class="col-xs-12 col-md-2">
+                    <span class="scheduleView-approver">{{vm.schedule.approvedBy}}</span>
+                </div>
+            </div>
+            <div class="row scheduleView-row" ng-hide="vm.schedule.approvalStatus=='UNAPPROVED'">
+                <div class="col-xs-12 col-md-2 scheduleView-infoLabel">
+                    <label ng-show="vm.schedule.approvalStatus=='APPROVED'">Approval Message</label>
+                    <label ng-show="vm.schedule.approvalStatus=='REJECTED'">Rejection Message</label>
+                </div>
+                <div class="col-xs-12 col-md-2">
+                    <span class="scheduleView-approvalMsg">{{vm.schedule.approvalMsg}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 scheduleView-reviewBlock" ng-show="vm.showReviewBlock">
+            <h2 class="row scheduleView-reviewHeader">
+                <i class="fa fa-retweet fa-2x"></i>
+                <span class="scheduleView-reviewTitle" ng-show="vm.isUnapprovedOrPending()">Review this Schedule</span>
+                <span class="scheduleView-reviewTitle" ng-show="vm.isApprovedOrRejected()">Revoke this Schedule</span>
+            </h2>
+            <div class="row scheduleView-reviewBody" ng-show="vm.isUnapprovedOrPending()">
+                <h3 class="options-title scheduleView-reviewText">Please enter a comment for this review</h3>
+                <textarea class="scheduleView-reviewMessage" ng-model="vm.approvalMessage"></textarea>
+            </div>
+            <div class="row scheduleView-reviewFooter">
+                <span ng-show="vm.isApprovedOrRejected()">
+                    <button class="btn btn-danger scheduleView-revokeButton" ng-click="vm.revokeApproval()" ng-disabled="!vm.hasRole(vm.schedule.team)">Revoke</button>
+                </span>
+                <span ng-show="vm.isUnapprovedOrPending()">
+                    <button class="btn btn-primary scheduleView-approveButton" ng-click="vm.approveSchedule()" ng-disabled="!vm.hasRole(vm.schedule.team)">Approve</button>
+                    <button class="btn btn-danger scheduleView-rejectButton" ng-click="vm.rejectSchedule()" ng-disabled="!vm.approvalMessageIsPresent() && !vm.hasRole(vm.schedule.team)">Reject</button>
+                </span>
+                <button class="btn btn-default scheduleView-cancelButton" ng-click="vm.cancelAction()">Cancel</button>
+                <div ng-show="!vm.hasRole(vm.schedule.team)" class="scheduleView-reviewWarningText">
+                    <i class="fa fa-warning scheduleView-reviewWarningIcon"></i>
+                    You don't have rights to review this schedule.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row scheduleView-editorRow">
+        <div class="col-xs-12">
+            <div class="scheduleView-editor">
+                <div class="control-label">
+                    <span class="scheduleView-label">Schedule XML</span>
+                    <div class="scheduleView-actionsHolder" ng-show="!vm.showReviewBlock">
+                        <a class="schedules-iconLink" href="" data-clip-copy="vm.getXmlRestCallUrl()" title="Copy link to xml content">
+                            <i class="fa fa-link"></i>
+                        </a>
+                        <a ng-click="vm.showReviewCommentsDialog()" class="schedules-iconLink" title="Review Comments">
+                            <i class="fa fa-comments-o"></i>
+                        </a>
+                        <a href="#/schedules/{{vm.schedule.id}}/review?version={{vm.selectedVersion}}" class="schedules-iconLink" title="Review Schedule"
+                           ng-show="vm.hasRole(vm.schedule.team)">
+                            <i class="fa fa-retweet"></i>
+                        </a>
+                        <a href="#/schedules/{{vm.schedule.id}}/edit" class="schedules-iconLink" title="Edit"
+                           ng-show="vm.hasRole(vm.schedule.team) && vm.schedule.lastVersion">
+                            <i class="fa fa-pencil-square-o"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="panel panel-default" ui-ace="{
+                            onLoad: vm.xmlEditorLoaded,
+                            theme: 'eclipse',
+                            mode: 'xml',
+                            showPrintMargin: false
+                        }" readonly>
+                </div>
+                <textarea class="scheduleForm-xml scheduleForm-xml_hidden">{{vm.xmlEditorHiddenContent}}</textarea>
+            </div>
+        </div>
+    </div>
+</div>

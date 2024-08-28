@@ -1,0 +1,23 @@
+<schedule>
+    <item-group parallel="true">
+        <item-group parallel="false">
+            <item>
+                <name>Step 11</name>
+                <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+                <suites>one.xml</suites>
+            </item>
+            <item>
+                <name>Step 12</name>
+                <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+                <suites>two.xml</suites>
+            </item>
+        </item-group>
+        <item-group parallel="false">
+            <item>
+                <name>Step 21</name>
+                <component>com.ericsson.cifwk.taf.executor:te-taf-testware</component>
+                <suites>three.xml</suites>
+            </item>
+        </item-group>
+    </item-group>
+</schedule>

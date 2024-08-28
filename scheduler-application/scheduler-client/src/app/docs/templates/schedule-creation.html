@@ -1,0 +1,214 @@
+<div class="schedules-docTemplate">
+    <h2 class="schedules-docTemplate-heading">Schedule Creation / Editing</h2>
+    <p>
+        Here we are showing a schedule being edited, but the functionality for creating a schedule from scratch is the
+        same. <b>Note that we are creating a Maintrack schedule here. In the image you can see select boxes for Product,
+        Drop and Type. When creating a KGB+N schedule these select boxes won't be visible.</b> See
+        <a ui-sref="documentation.schedule-list">this page</a> for information on Maintrack nad KGB+N modes.
+    </p>
+    <br>
+    <img ng-src="{{vm.scheduleEdit}}" class="scheduleDocs-image">
+    <div>
+        <h3>1 - Schedule name</h3>
+        <p>
+            <ul>
+                <li>Maintrack schedule names must be unique in the drop.</li>
+                <li>KGB+N schedule names must be unique per team. That is, teams may not have multiple KGB+N schedules
+                    with the same name.
+                </li>
+            </ul>
+        </p>
+    </div>
+    <div>
+        <h3>2 - Team</h3>
+        <p>
+            Here you will have the option of assigning the schedule you are creating or editing to one of the teams that
+            you belong to. The team(s) available to a you are derived from LDAP roles for Cloud access. <b>If you are not
+            assigned to the correct team please contact the scrum master of the team you wish to create a schedule for
+            and have them grant you access to that team's cloud area</b>.
+        </p>
+    </div>
+    <div>
+        <h3>3 - XML Editor</h3>
+        <p>
+            The schedule XML is entered here. It may be done manually or by using the various controls on the page to
+            automatically generate XML tags. For a detailed description on schedule XML format see
+            <a href="http://taf.lmera.ericsson.se/taflanding/tedocs/latest/schedule.html" target="_blank">this page</a>
+        </p>
+    </div>
+    <div>
+        <h3>4 - Add XML tags Controls</h3>
+        <p>
+            These are, from left to right:
+            <ul>
+                <li>
+                    <i class="fa fa-laptop"></i>
+                    Add 'env-properties' tag - allows the user to specify a set of environment properties. JVM version
+                    for instance. These tags may be placed in the 'schedule', 'item-group' or 'item' levels.
+                    <br><br>
+                    If used at the 'item-group' or 'item' levels the 'env-properties' tag <b>must be the last element</b>.
+                </li>
+                <br>
+                <li>
+                    <i class="fa fa-sitemap"></i>
+                    Add 'properties' tag - these go inside 'env-properties' tags and should have attributes
+                    'type' and 'key', Clicking inside this tag brings up a control to auto insert these attributes.
+                </li>
+                <br>
+                <li>
+                    <i class="fa fa-cubes"></i>
+                    Add 'item-group' tag - allows the user add item group tags. Item groups are a set of items
+                    (see below) that are grouped together. The 'item-group' tag may have a boolean 'parallel' attribute which
+                    indicates that the items in the group should be executed in parallel. Clicking inside the 'item-group'
+                    tag brings up a control to auto insert this attribute.
+                </li>
+                <br>
+                <li>
+                    <i class="fa fa-cube"></i>
+                    Add 'item' tag - allows the user to add an item to the schedule. An item corresponds to a testware
+                    package and 1 or more of the suite XML files that it contains. May be used in the 'schedule' or
+                    'item-group' levels. See sections 5, 6 and 7 for further details.
+                </li>
+                <br>
+                <li>
+                    <i class="fa fa-user"></i>
+                    Add 'manual-item' tag - allows the user to specify manual items in order for TE to produce a combined
+                    Allure report with TE executed tests and TMS test Campaigns. May only be used in the 'schedule'
+                    level.
+                </li>
+                <br>
+                <li>
+                    <i class="fa fa-cogs"></i>
+                    Add 'test-campaigns' tag - allows the user to specify a list of 'test-campaign' tags (see below).
+                    Can only be placed within a 'manual-item' tag.
+                </li>
+                <br>
+                <li>
+                    <i class="fa fa-cog"></i>
+                    Add 'test-campaign' tag - allows the user to specify a TMS test campaign. This tag must have an 'id'
+                    attribute which is id of TMS test campaign. Clicking inside the tag reveals a control that allows
+                    auto insertion of this attribute.
+                </li>
+                <br>
+                <li>
+                    <i class="fa fa-comment-o"></i>
+                    Add comment tag - allows the user to leave comments in the XML.
+                </li>
+                <br>
+                <li>
+                    <i class="fa fa-plus-square-o"></i>
+                    Add 'include' tag - allows the user to include another approved schedule to the XML.
+                    May be used in the 'schedule' or 'item-group' levels. See the 'Including a Schedule' section below.
+                </li>
+            </ul>
+        </p>
+    </div>
+    <div>
+        <h3>5 - Testware List</h3>
+        <p>
+            The testware list consists of a list of testware packages. When in Maintrack mode, you will be creating a
+            schedule for a particular drop. As such the testware in the list are the packages for the <b>latest testware
+            ISO for the drop</b>.
+        </p>
+        <p>
+            When in KGB+N mode the list of packages is the <b>very latest testware</b>.
+        </p>
+        <h3>Adding Testware to the Schedule</h3>
+        <p>
+            To add testware to the schedule, select the testware in the list. The testware will be highlighted in blue
+            and a <i class="fa fa-plus-square-o"></i> icon will be displayed on the left of the package:
+        </p>
+        <img ng-src="{{vm.selectedTestware}}" class="scheduleDocs-image">
+        <br><br>
+        <p>
+            Click the <i class="fa fa-plus-square-o"></i> icon to open the suite selection popup:
+        </p>
+        <img ng-src="{{vm.suitesPopup}}" class="scheduleDocs-image">
+        <br><br>
+        <p>
+            Select the suites that you want to use and then click OK. The testware will appear as an item in the XML.
+        </p>
+    </div>
+    <div>
+        <h3>6 - Testware Highlighting</h3>
+        <p>
+            Notice that certain testware packages are highlighted in green. This indicates that the packages in question
+            are included in the XML. For example, <b>ERICTAFipsmtemplatemanagerservice_CXP9031851</b> is the first testware
+            item in the item group in this example. This is useful for seeing what packages you have already used at a glance.
+        </p>
+    </div>
+    <div>
+        <h3>7 - Testware Suites Warning Icon</h3>
+        <p>
+            Many, if not most testware packages include several suite XML files which specify what test cases should be
+            run, in what order and whether execution should be in parallel or sequentially. The warning icon displayed on
+            a package in the testware list means that not all of the suite XML files for that particular package are
+            present in the XML. <b>ERICTAFidenmgmtopendj_CXP9030850</b> has 2 suite XML files included, <b>OpenDJ.xml</b>
+            and <b>OpenDJ_FunctionalTest.xml</b>. This warning indicator tells us that more are available.
+        </p>
+    </div>
+    <div>
+        <h3>8 - Refresh Testware Control</h3>
+        <p>
+            Clicking this icon refreshes the testware in the list. In Maintrack mode, if a new testware ISO for the drop
+            is discovered, the packages in that ISO will be displayed.
+        </p>
+    </div>
+    <div>
+        <h3>9 - Validate / Save Control</h3>
+        <p>
+            Schedules are validated against a schema to ensure that the XML is correctly formed. Other validation includes:
+            <ul>
+                <li>Ensuring that items in the XML are in the testware list</li>
+                <li>Ensuring that the specified suite XML files exist in the testware</li>
+                <li>Ensuring that the an included schedule actually exists and is approved</li>
+                <li>Ensuring that any test campaign ids specified actually exist in TMS</li>
+            </ul>
+            Validation can be performed as a standalone step, but it is automatically performed when the 'Save' button
+            is pressed. If validation fails, the offending areas of the XML are highlighted in red and an error icon
+            appears at the top of the editor. Clicking this icon reveals a popup that shows information about each error.
+            The image below shows well formed XML with 4 errors:
+            <br><br>
+            <ul>
+                <li>A package doesn't exist in the testware list</li>
+                <li>A suite XML file doesn't exist in the testware</li>
+                <li>A test campaign with the specified id doesn't exist in TMS</li>
+                <li>An included schedule doesn't exist</li>
+            </ul>
+            <br>
+            <b>Validation may be overridden - that is you may proceed to save the schedule even if it fails validation.
+            Only choose this course of action if you are certain about the outcome</b>.
+            <br><br>
+            After saving a schedule, you will be presented with the option to
+            <a ui-sref="documentation.schedule-review">send it for review</a>.
+        </p>
+        <img ng-src="{{vm.validationErrors}}" class="scheduleDocs-image">
+        <br><br>
+    </div>
+    <div>
+        <h2>Including a schedule</h2>
+        <p>
+            Including a schedule is essentially embedding a schedule within the one you are currently creating or
+            editing.
+            <a href="http://taf.lmera.ericsson.se/taflanding/tedocs/latest/index.html" target="_blank">TAF Test Executor</a>
+            can retrieve an included schedule from TAF Scheduler and execute it as part of the schedule that it is
+            included in. To include a schedule, click the <i class="fa fa-plus-square-o"></i> icon from the control
+            group (See section 4). A popup will be displayed that allows you to select schedules by drop. <b>Note that
+            only approved schedules will be displayed</b>.
+        </p>
+        <p>
+            Select the schedule(s) that you want to include and press OK. The include tags will be added to the XML.
+            Included schedule XML is displayed in a read only editor below the main editor as shown in the image below:
+        </p>
+        <img ng-src="{{vm.scheduleEditInclude}}" class="scheduleDocs-image">
+        <br><br>
+        <h3>Validation of Included Schedules</h3>
+        <p>
+            Included schedules undergo the same validation process as the 'parent' schedule that it is included in.
+            Any validation errors will be highlighted in red in the <b>included schedule's</b> editor and a description
+            of the errors will be shown in the popup above the main editor as described in section 9. If there are validation
+            errors for both the main schedule and the included schedule, the errors in the popup will be prefixed with
+            the respective schedule name to enable easy identification.
+        </p>
+    </div>
+</div>

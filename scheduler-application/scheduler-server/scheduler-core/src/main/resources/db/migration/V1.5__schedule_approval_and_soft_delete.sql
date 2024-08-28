@@ -1,0 +1,2 @@
+ALTER TABLE `Schedule` ADD `approved` BIT DEFAULT FALSE;
+ALTER TABLE `Schedule` ADD `deleted` BIT DEFAULT FALSE;

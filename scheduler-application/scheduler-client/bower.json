@@ -1,0 +1,35 @@
+{
+  "name": "tafScheduler",
+  "version": "0.0.0",
+  "dependencies": {
+    "angular": "~1.4.3",
+    "angular-animate": "~1.4.3",
+    "angular-cookies": "~1.4.0",
+    "angular-debounce": "~1.0.3",
+    "angular-touch": "~1.4.0",
+    "angular-sanitize": "~1.4.0",
+    "angular-resource": "~1.4.0",
+    "angular-ui-router": "~0.2.13",
+    "angular-bootstrap": "0.14.2",
+    "angular-breadcrumb": "~0.4.0",
+    "angular-ui-tree": "~2.4.0",
+    "angular-messages": "~1.4.0",
+    "angular-spinner": "~0.6.2",
+    "angular-toastr": "~1.4.1",
+    "font-awesome": "~4.3.0",
+    "angular-ui-ace": "~0.2.3",
+    "ace-builds-bower-patched": "~1.2.2",
+    "checklist-model": "~0.2.4",
+    "underscore": "~1.8.3",
+    "zeroclipboard": "~2.2.0",
+    "ng-clip": "~0.2.6",
+    "ngstorage": "~0.3.9",
+    "ng-tags-input": "~3.0.0"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.4.0"
+  },
+  "resolutions": {
+    "angular": "~1.4.0"
+  }
+}

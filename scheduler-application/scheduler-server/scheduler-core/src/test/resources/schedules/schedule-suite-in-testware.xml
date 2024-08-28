@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<schedule xmlns="http://taf.lmera.ericsson.se/schema/te"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://taf.lmera.ericsson.se/schema/te http://taf.lmera.ericsson.se/schema/te/schedule/xml">
+
+    <item>
+        <name>Item has unmapped suite</name>
+        <component>com.ericsson.cifwk.taf.scheduler:scheduler-testware</component>
+        <suites>correct-suite.xml</suites>
+    </item>
+
+    <item-group parallel="true">
+        <item>
+            <name>Correct item</name>
+            <component>com.ericsson.cifwk.taf.scheduler:scheduler-testware-new:1.0</component>
+            <suites>correct-new-suite.xml</suites>
+        </item>
+    </item-group>
+</schedule>

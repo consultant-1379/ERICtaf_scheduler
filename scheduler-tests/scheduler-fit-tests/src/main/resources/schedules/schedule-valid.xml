@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<schedule xmlns="http://taf.lmera.ericsson.se/schema/te"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://taf.lmera.ericsson.se/schema/te http://taf.lmera.ericsson.se/schema/te/schedule/xml">
+    <item>
+        <name>ERICTAFlogviewer_CXP9031658 1</name>
+        <component>com.ericsson.oss.presentation.client:ERICTAFlogviewer_CXP9031658</component>
+        <suites>LogViewer.xml</suites>
+    </item>
+    <item>
+        <name>ERICTAFuipush_CXP9031520 1</name>
+        <component>com.ericsson.oss.presentation.server:ERICTAFuipush_CXP9031520</component>
+        <suites>WebPush.xml</suites>
+    </item>
+    <env-properties>
+        <property type="java" key="version">8</property>
+    </env-properties>
+</schedule>

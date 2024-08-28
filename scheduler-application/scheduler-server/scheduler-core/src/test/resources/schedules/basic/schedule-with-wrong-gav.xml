@@ -1,0 +1,14 @@
+<schedule xmlns="http://taf.lmera.ericsson.se/schema/te"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://taf.lmera.ericsson.se/schema/te http://taf.lmera.ericsson.se/schema/te/schedule/xml">
+    <item>
+        <name>Item with wrong GAV</name>
+        <component>g.r:a1:err</component>
+        <suites>1.xml</suites>
+    </item>
+    <item>
+        <name>Item with wrong GAV 2</name>
+        <component>com.ericsson.cifwk</component>
+        <suites>1.xml</suites>
+    </item>
+</schedule>
